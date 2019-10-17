@@ -1,12 +1,14 @@
 const {User, Address} = require("../models")
+const { verifyPassword } = require("../helpers/encryption")
+const { generateToken } = require("../helpers/token")
 
 class UserController {
   static register(req, res, next){
     
-    let {cityId, address_line, postal_code} = req.body
-    let {email, password, username} = req.body
+    const {cityId, address_line, postal_code} = req.body
+    const {email, password, username} = req.body
 
-    console.log(cityId)
+
     User.create(
       { 
         email, 
@@ -37,7 +39,29 @@ class UserController {
 
 
   static login(req, res, next){
+    const {email, password} = req.body
     
+    User.findOne({
+      where : { email }
+    })
+    .then(result => {
+      if(result && verifyPassword(password, result.password)){
+        let payload = {
+          id : result.id,
+        }
+
+        res.status(200).json({
+          token : generateToken(payload)
+        })
+      }else {
+        next({
+          msg : "Invalid email/password",
+          code : 400
+        })
+      }
+    })
+    .catch(next)
+
   }
 }
 

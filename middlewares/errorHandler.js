@@ -1,8 +1,9 @@
-const errorHelper = require("../helpers/error")
+const { sequelizeUniqueErrorMessage } = require("../helpers/error")
 
 module.exports = (err, req, res, next) => {
 
-  //console.log(JSON.stringify(err, null, 2))
+
+  console.log(JSON.stringify(err, null, 2))
 
   let errorCode, errorMessage;
 
@@ -12,7 +13,12 @@ module.exports = (err, req, res, next) => {
     errorMessage = "Failed to authenticate"
     //console.log(err.message)
 
-  }else{
+  }
+  else if (err.name === 'SequelizeUniqueConstraintError') {
+    errorMessage =  sequelizeUniqueErrorMessage(err)
+    errorCode = 400
+  }
+  else{
     // handle error that manually thrown
     errorCode = err.code || 500
     errorMessage = err.msg || "Internal Server Error"

@@ -1,5 +1,5 @@
 'use strict';
-
+const { hashPassword } = require("../helpers/encryption")
 
 module.exports = (sequelize, DataTypes) => {
   const {Model} = sequelize.Sequelize
@@ -10,12 +10,19 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     username: DataTypes.STRING,
   },{
-    sequelize
+    sequelize,
+    hooks: {
+      beforeCreate: (user, options) => {
+        user.password = hashPassword(user.password);
+      },
+    
+    },
   })
 
   User.associate = function(models) {
     // associations can be defined here
     User.Address = User.belongsTo(models.Address, {foreignKey : "addressId"})
+    //User.belongsTo(models.Role)
   };
 
 

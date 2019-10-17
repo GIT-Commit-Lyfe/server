@@ -9,16 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     role_name: DataTypes.STRING,
   },{
     sequelize,
-    modelName : 'role'
   })
 
   Role.associate = function(models) {
     // associations can be defined here
-    Role.hasMany(models.User)
+    Role.hasMany(models.User, {foreignKey : "roleId"})
   };
-
-
-  
 
   return Role;
 };
