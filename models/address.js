@@ -6,12 +6,19 @@ module.exports = (sequelize, DataTypes) => {
   class Address extends Model {}
 
   Address.init({
-    cityId: DataTypes.INTEGER,
     address_line: DataTypes.STRING,
     postal_code: DataTypes.STRING
   },{
     sequelize
   })
+
+  Address.associate = function(models) {
+    // associations can be defined here
+
+    Address.belongsTo(models.City)
+  };
+
+
 
   
 

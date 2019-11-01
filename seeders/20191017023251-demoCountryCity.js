@@ -17,7 +17,7 @@ module.exports = {
     {
       id : 1,
       name : "Jakarta",
-      countryId : 1,
+      CountryId : 1,
       createdAt : new Date(),
       updatedAt : new Date()
     }

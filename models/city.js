@@ -7,13 +7,16 @@ module.exports = (sequelize, DataTypes) => {
 
   City.init({
     name: DataTypes.STRING,
-    countryId: DataTypes.INTEGER
+    
   },{
     sequelize
   })
 
+  City.associate = function(models) {
+    // associations can be defined here
 
-  
+    City.belongsTo(models.Country)
+  };
 
   return City;
 };

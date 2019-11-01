@@ -21,11 +21,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      roleId : {
+      RoleId : {
         allowNull : false,
         type :  Sequelize.INTEGER
       },
-      addressId : {
+      AddressId : {
         allowNull : false,
         type :  Sequelize.INTEGER
       },

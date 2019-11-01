@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      countryId : {
+      CountryId : {
         allowNull: false,
         type: Sequelize.INTEGER
       },

@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     // associations can be defined here
-    User.Address = User.belongsTo(models.Address, {foreignKey : "addressId"})
+    User.Address = User.belongsTo(models.Address)
+    User.Role = User.belongsTo(models.Role)
     //User.belongsTo(models.Role)
   };
 
