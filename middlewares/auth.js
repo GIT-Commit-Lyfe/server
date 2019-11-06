@@ -10,7 +10,7 @@ let NOT_AUTHORIZED = {
 class Auth {
   static authentication(req, res, next){
     try {
-      console.log(req.headers.token, "ini token")
+      
       let decoded = tokenHelper.verifyToken(req.headers.token)
       
       User.findByPk(

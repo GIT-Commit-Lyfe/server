@@ -29,6 +29,11 @@ module.exports = {
         allowNull : false,
         type :  Sequelize.INTEGER
       },
+      isVerified : {
+        allowNull : false,
+        type : Sequelize.BOOLEAN,
+        defaultValue : true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

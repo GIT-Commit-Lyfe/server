@@ -1,14 +1,13 @@
 const {User, Address} = require("../models")
 const { verifyPassword } = require("../helpers/encryption")
-const { generateToken } = require("../helpers/token")
+const { generateToken, verifyToken } = require("../helpers/token")
+
 
 class UserController {
   static register(req, res, next){
     
     const {CityId, address_line, postal_code, RoleId} = req.body
     const {email, password, username} = req.body
-
-    console.log(CityId)
 
     User.create(
       { 
@@ -28,10 +27,9 @@ class UserController {
       }
     )
     .then(result => {
-      console.log(result)
-      res.status(201).json({
-        message : "Successfully register a user"
-      })
+      //console.log(result)
+      req.registeredUser = result
+      next()
     })
     .catch(next)
 
@@ -63,6 +61,30 @@ class UserController {
     })
     .catch(next)
 
+  }
+
+  static verify(req, res, next){
+    try {
+
+      let decoded = verifyToken(req.query.v)
+
+      User.update({
+        isVerified = true
+      }, {
+        where : {
+          id: decoded.id
+        }
+      })
+      .then(result => {
+        res.status(200).json({
+          message : "Verify email success"
+        })
+      })
+      .catch(next)
+
+    }catch (err){
+      next(err)
+    }
   }
 
   static findAll(req, res, next){
