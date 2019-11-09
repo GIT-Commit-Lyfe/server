@@ -57,6 +57,7 @@ class UserController {
     })
     .then(result => {      
       req.PIN = result.loginPIN
+      req.loggedUser = result
       next()    
     })
     .catch(next)
@@ -66,7 +67,7 @@ class UserController {
   static verifyEmail(req, res, next){
 
       User.update({
-        isVerified = true
+        isVerified : true
       }, {
         where : {
           id: req.decoded.id

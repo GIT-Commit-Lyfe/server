@@ -32,7 +32,7 @@ module.exports = {
       isVerified : {
         allowNull : false,
         type : Sequelize.BOOLEAN,
-        defaultValue : true
+        defaultValue : false
       },
       loginPIN : {
         type : Sequelize.STRING

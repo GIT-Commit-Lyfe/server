@@ -29,7 +29,7 @@ function sendPIN(req, res, next){
 
   var mailOptions = {
     from: process.env.EMAIL_GMAIL,
-    to: req.registeredUser.email,
+    to: req.loggedUser.email,
     subject: 'WatchStreet Login',
     text: `
     PIN : ${ req.PIN }
