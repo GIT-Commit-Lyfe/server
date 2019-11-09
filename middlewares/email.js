@@ -1,6 +1,6 @@
 const transporter = require("../helpers/email")
 const { generateToken } = require("../helpers/token")
-const { generatePIN } = require("../helpers/pin")
+//const { generatePIN } = require("../helpers/pin")
 
 let domain = "http://watchstreet.com"
 
@@ -28,8 +28,8 @@ function sendEmail(req, res, next){
 function sendPIN(req, res, next){
 
   var mailOptions = {
-    from: process.env.EMAIL_GMAIL,
-    to: req.registeredUser.email,
+    from: "<no-reply>@watchstreet.com",
+    to: req.loggedUser.email,
     subject: 'WatchStreet Login',
     text: `
     PIN : ${ req.PIN }
