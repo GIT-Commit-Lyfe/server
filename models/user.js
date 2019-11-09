@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     username: DataTypes.STRING,
-    isVerified : DataTypes.BOOLEAN
+    isVerified : DataTypes.BOOLEAN,
+    loginPIN: DataTypes.STRING
   },{
     sequelize,
     hooks: {

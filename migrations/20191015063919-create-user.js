@@ -34,6 +34,9 @@ module.exports = {
         type : Sequelize.BOOLEAN,
         defaultValue : true
       },
+      loginPIN : {
+        type : Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

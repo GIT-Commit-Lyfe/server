@@ -1,6 +1,8 @@
 const transporter = require("../helpers/email")
 const { generateToken } = require("../helpers/token")
-let domain = "http://localhost:3000"
+const { generatePIN } = require("../helpers/pin")
+
+let domain = "http://watchstreet.com"
 
 function sendEmail(req, res, next){
   
@@ -16,6 +18,32 @@ function sendEmail(req, res, next){
     `
   };
 
+  send(mailOptions)
+
+  res.status(201).json({
+    message : "Register succesfully, Please check your email"
+  })
+}
+
+function sendPIN(req, res, next){
+
+  var mailOptions = {
+    from: process.env.EMAIL_GMAIL,
+    to: req.registeredUser.email,
+    subject: 'WatchStreet Login',
+    text: `
+    PIN : ${ req.PIN }
+    `
+  };
+
+  send(mailOptions)
+  res.status(200).json({
+    message : "We've send your login PIN, please check your email."
+  })
+
+}
+
+function send(mailOptions) {
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
@@ -26,9 +54,10 @@ function sendEmail(req, res, next){
       
     }
   });
-  res.status(201).json({
-    message : "Register succesfully"
-  })
 }
 
-module.exports = sendEmail
+
+module.exports = {
+  sendEmail,
+  sendPIN
+}

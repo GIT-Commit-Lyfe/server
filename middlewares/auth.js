@@ -11,7 +11,7 @@ class Auth {
   static authentication(req, res, next){
     try {
       
-      let decoded = tokenHelper.verifyToken(req.headers.token)
+      let decoded = tokenHelper.verifyToken(req.headers.access_token)
       
       User.findByPk(
         decoded.id, 
@@ -30,6 +30,17 @@ class Auth {
     catch (err){
       next(err)
     }
+  }
+
+  static decodeVerifyToken(req, res, next){
+
+    try {
+      req.decoded = tokenHelper.verifyToken(req.headers.verify_token, true)
+      next()
+    }catch (err){
+      next(err)
+    }
+    
   }
   static adminAuthorization(req, res, next){
   

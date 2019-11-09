@@ -1,6 +1,7 @@
 const {User, Address} = require("../models")
 const { verifyPassword } = require("../helpers/encryption")
-const { generateToken, verifyToken } = require("../helpers/token")
+const { generateToken } = require("../helpers/token")
+const { generatePIN } = require("../helpers/pin")
 
 
 class UserController {
@@ -35,8 +36,6 @@ class UserController {
 
   }
 
-
-
   static login(req, res, next){
     const {email, password} = req.body
     
@@ -45,34 +44,32 @@ class UserController {
     })
     .then(result => {
       if(result && verifyPassword(password, result.password)){
-        let payload = {
-          id : result.id,
-        }
 
-        res.status(200).json({
-          token : generateToken(payload)
-        })
+        result.loginPIN = generatePIN()
+        return result.save()
+
       }else {
-        next({
+        throw {
           msg : "Invalid email/password",
           code : 400
-        })
+        }
       }
+    })
+    .then(result => {      
+      req.PIN = result.loginPIN
+      next()    
     })
     .catch(next)
 
   }
 
-  static verify(req, res, next){
-    try {
-
-      let decoded = verifyToken(req.query.v)
+  static verifyEmail(req, res, next){
 
       User.update({
         isVerified = true
       }, {
         where : {
-          id: decoded.id
+          id: req.decoded.id
         }
       })
       .then(result => {
@@ -82,9 +79,27 @@ class UserController {
       })
       .catch(next)
 
-    }catch (err){
-      next(err)
-    }
+  }
+
+  static loginPIN(req, res, next){
+    
+    User.findByPk(req.decoded.id)
+    .then(user => {
+      if(user.loginPIN === req.body.pin){
+        res.status(200).json({
+          access_token : generateToken({
+            id : user.id
+          })
+        })
+      }else { 
+        next({
+          code : 401,
+          msg : "Wrong PIN"
+        })
+      }
+    })
+    .catch(next)
+
   }
 
   static findAll(req, res, next){
