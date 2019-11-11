@@ -3,13 +3,14 @@ const { generateToken } = require("../helpers/token")
 const { generatePIN } = require("../helpers/pin")
 
 let domain = "http://watchstreet.com"
+let sender = "WatchStreet"
 
 function sendEmail(req, res, next){
   
   let token = generateToken({id : req.registeredUser.id}, true)
 
   var mailOptions = {
-    from: process.env.EMAIL_GMAIL,
+    from: sender,
     to: req.registeredUser.email,
     subject: 'Welcome to WatchStreet',
     text: `
@@ -28,7 +29,7 @@ function sendEmail(req, res, next){
 function sendPIN(req, res, next){
 
   var mailOptions = {
-    from: process.env.EMAIL_GMAIL,
+    from: sender,
     to: req.loggedUser.email,
     subject: 'WatchStreet Login',
     text: `
@@ -38,7 +39,8 @@ function sendPIN(req, res, next){
 
   send(mailOptions)
   res.status(200).json({
-    message : "We've send your login PIN, please check your email."
+    message : "We've send your login PIN, please check your email.",
+    verify_token : generateToken({id : req.loggedUser.id}, token)
   })
 
 }
