@@ -1,6 +1,6 @@
 const transporter = require("../helpers/email")
 const { generateToken } = require("../helpers/token")
-const { generatePIN } = require("../helpers/pin")
+//const { generatePIN } = require("../helpers/pin")
 
 let domain = "http://watchstreet.com"
 let sender = "WatchStreet"
@@ -40,7 +40,7 @@ function sendPIN(req, res, next){
   send(mailOptions)
   res.status(200).json({
     message : "We've send your login PIN, please check your email.",
-    verify_token : generateToken({id : req.loggedUser.id}, token)
+    verify_token : generateToken({id : req.loggedUser.id}, "token")
   })
 
 }

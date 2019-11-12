@@ -35,6 +35,7 @@ class Auth {
   static decodeVerifyToken(req, res, next){
 
     try {
+      console.log('ini req.headers',req.headers)
       req.decoded = tokenHelper.verifyToken(req.headers.verify_token, true)
       next()
     }catch (err){
