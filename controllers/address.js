@@ -35,8 +35,9 @@ class AddressController {
         }
       ]
     })
-    .then(result => {
-      res.status(200).json(result)
+    .then(([result]) => {
+      
+      result ? res.status(200).json(result) : next({ code : 404, msg : "Id not found" })
     })
     .catch(next)
   }
@@ -49,7 +50,7 @@ class AddressController {
       }
     })
     .then(result => {
-      result ? res.status(200).json({ message : "Successfully delete data" }) : next({ status : 404, msg : "Id not found" })
+      result ? res.status(200).json({ message : "Successfully delete data" }) : next({ code : 404, msg : "Id not found" })
     })
     .catch(next)
   }

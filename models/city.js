@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   City.associate = function(models) {
     // associations can be defined here
 
-    City.belongsTo(models.Country)
+    City.belongsTo(models.Country,{ constraints: true, foreignKeyConstraint:true  })
   };
 
   return City;

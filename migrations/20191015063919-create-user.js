@@ -23,7 +23,11 @@ module.exports = {
       },
       RoleId : {
         allowNull : false,
-        type :  Sequelize.INTEGER
+        type :  Sequelize.INTEGER,
+        references: {
+          model: 'Roles', // 'persons' refers to table name
+          key: 'id', // 'id' refers to column name in persons table
+       }
       },
       AddressId : {
         allowNull : false,

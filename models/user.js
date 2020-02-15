@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     // associations can be defined here
     User.Address = User.belongsTo(models.Address)
-    User.Role = User.belongsTo(models.Role)
+    User.Role = User.belongsTo(models.Role, { constraints: true, foreignKeyConstraint:true  })
     //User.belongsTo(models.Role)
   };
 

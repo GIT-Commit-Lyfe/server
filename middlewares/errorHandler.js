@@ -4,6 +4,7 @@ module.exports = (err, req, res, next) => {
 
 
   console.log(JSON.stringify(err, null, 2))
+  console.log(err.message)
 
   let errorCode, errorMessage;
 
@@ -16,6 +17,10 @@ module.exports = (err, req, res, next) => {
   }
   else if (err.name === 'SequelizeUniqueConstraintError') {
     errorMessage =  sequelizeUniqueErrorMessage(err)
+    errorCode = 400
+  }
+  else if (err.name === 'SequelizeDatabaseError'){
+    errorMessage = err.message
     errorCode = 400
   }
   else{

@@ -8,6 +8,7 @@ function sequelizeUniqueErrorMessage(err){
 }
 
 
+
 module.exports = {
   sequelizeUniqueErrorMessage
 }

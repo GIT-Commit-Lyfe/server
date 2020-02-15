@@ -1,27 +1,32 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Addresses', {
+    return queryInterface.createTable('Products', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      CityId : {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Cities', // 'persons' refers to table name
-          key: 'id', // 'id' refers to column name in persons table
-       }
+      year: {
+        type: Sequelize.INTEGER
       },
-      address_line: {
-        allowNull: false,
+      price: {
+        type: Sequelize.DECIMAL
+      },
+      description: {
         type: Sequelize.STRING
       },
-      postal_code: {
-        allowNull: false,
+      top_image: {
+        type: Sequelize.STRING
+      },
+      crown_side_image: {
+        type: Sequelize.STRING
+      },
+      case_back_image: {
+        type: Sequelize.STRING
+      },
+      show_off_image: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -35,6 +40,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Addresses');
+    return queryInterface.dropTable('Products');
   }
 };
