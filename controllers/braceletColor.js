@@ -15,6 +15,7 @@ class BraceletColorController {
   }
 
   static findAll(req, res, next){
+    let conditions = {}
 
     req.query.id && (conditions.id = req.query.id)
     req.query.color_name && (conditions.color_name = { $like : `%${req.query.color_name}%`})

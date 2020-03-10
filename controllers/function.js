@@ -15,6 +15,7 @@ class FunctionController {
   }
 
   static findAll(req, res, next){
+    let conditions = {}
 
     req.query.id && (conditions.id = req.query.id)
     req.query.function_name && (conditions.function_name = { $like : `%${req.query.function_name}%`})

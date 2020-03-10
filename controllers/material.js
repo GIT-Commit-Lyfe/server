@@ -15,6 +15,7 @@ class MaterialController {
   }
 
   static findAll(req, res, next){
+    let conditions = {}
 
     req.query.id && (conditions.id = req.query.id)
     req.query.material_name && (conditions.material_name = { $like : `%${req.query.material_name}%`})

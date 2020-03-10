@@ -17,6 +17,7 @@ class CaliberController {
   }
 
   static findAll(req, res, next){
+    let conditions = {}
 
     req.query.id && (conditions.id = req.query.id)
     req.query.caliber_name && (conditions.caliber_name = { $like : `%${req.query.caliber_name}%`})
